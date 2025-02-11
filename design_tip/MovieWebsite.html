@@ -1,0 +1,482 @@
+<html><head><base href="https://example.com/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PirateStream</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Luminari', 'Arial', fantasy;
+        }
+
+        body {
+            background: #0a1f30;
+            color: #ffd700;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600"><defs><linearGradient id="oceanGradient" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%230a1f30"/><stop offset="100%" style="stop-color:%23132f44"/></linearGradient><linearGradient id="sailGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:%23c17f11"/><stop offset="100%" style="stop-color:%23926010"/></linearGradient></defs><rect width="800" height="600" fill="url(%23oceanGradient)"/><!-- Main Ship --><g transform="translate(300,200)"><animateTransform attributeName="transform" type="translate" from="300,200" to="310,205" dur="4s" repeatCount="indefinite" additive="sum"/><path d="M0,200 L200,200 L200,0 C200,0 100,50 0,0 Z" fill="url(%23sailGradient)"/><path d="M-100,200 L300,200 C250,250 -50,250 -100,200 Z" fill="%23603913"/></g><!-- Enemy Ship --><g transform="translate(600,250)"><animateTransform attributeName="transform" type="translate" from="600,250" to="-200,250" dur="20s" repeatCount="indefinite"/><path d="M0,100 L100,100 L100,0 C100,0 50,25 0,0 Z" fill="%23841c1c"/><path d="M-50,100 L150,100 C125,125 -25,125 -50,100 Z" fill="%23603913"/></g><!-- Pirates --><g class="pirates"><circle cx="550" cy="230" r="5" fill="%23000000"><animate attributeName="cx" values="550;450" dur="2s" begin="5s" fill="freeze"/><animate attributeName="cy" values="230;220" dur="2s" begin="5s" fill="freeze"/></circle><circle cx="560" cy="230" r="5" fill="%23000000"><animate attributeName="cx" values="560;460" dur="2s" begin="5.2s" fill="freeze"/><animate attributeName="cy" values="230;220" dur="2s" begin="5.2s" fill="freeze"/></circle></g><!-- Waves --><path d="M0,380 Q200,360 400,380 Q600,400 800,380 L800,600 L0,600 Z" fill="%230a1f30" opacity="0.7"><animate attributeName="d" dur="4s" repeatCount="indefinite" values="M0,380 Q200,360 400,380 Q600,400 800,380 L800,600 L0,600 Z;M0,390 Q200,370 400,390 Q600,410 800,390 L800,600 L0,600 Z;M0,380 Q200,360 400,380 Q600,400 800,380 L800,600 L0,600 Z"/></path><path d="M0,420 Q200,400 400,420 Q600,440 800,420 L800,600 L0,600 Z" fill="%230a1f30" opacity="0.5"><animate attributeName="d" dur="3s" repeatCount="indefinite" values="M0,420 Q200,400 400,420 Q600,440 800,420 L800,600 L0,600 Z;M0,430 Q200,410 400,430 Q600,450 800,430 L800,600 L0,600 Z;M0,420 Q200,400 400,420 Q600,440 800,420 L800,600 L0,600 Z"/></path></svg>');
+            background-repeat: repeat-x;
+            background-position: center bottom;
+            background-size: 800px 600px;
+            animation: slideBackground 20s linear infinite;
+            min-height: 100vh;
+        }
+
+        @keyframes slideBackground {
+            from {
+                background-position: 0 bottom;
+            }
+            to {
+                background-position: -800px bottom;
+            }
+        }
+
+        .navbar {
+            background: rgba(43, 27, 11, 0.9);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #c17f11;
+        }
+
+        .logo {
+            color: #c17f11;
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: "☠️";
+        }
+
+        .contact-info {
+            font-size: 0.9rem;
+            text-align: right;
+            color: #c17f11;
+        }
+
+        .ad-banner {
+            background: linear-gradient(45deg, #1c110a, #2b1810);
+            padding: 1rem;
+            margin-top: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #c17f11;
+            border-radius: 10px;
+            margin: 4rem 1rem 0 1rem;
+        }
+
+        .ad-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .ad-card {
+            background: rgba(193, 127, 17, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            width: 300px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 1px solid #c17f11;
+        }
+
+        .ad-card:hover {
+            transform: scale(1.05);
+            background: rgba(193, 127, 17, 0.2);
+        }
+
+        .ad-title {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        .ad-description {
+            font-size: 0.9rem;
+            color: #c17f11;
+        }
+
+        .category-header {
+            padding: 2rem 2rem 1rem 2rem;
+            font-size: 1.5rem;
+            color: #c17f11;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem 2rem 2rem;
+        }
+
+        .movie-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: 2px solid #c17f11;
+            background: rgba(193, 127, 17, 0.1);
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+            border-color: #ffd700;
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .movie-info {
+            padding: 1rem;
+            background: rgba(43, 27, 11, 0.9);
+        }
+
+        .movie-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #ffd700;
+        }
+
+        .movie-rating {
+            color: #c17f11;
+        }
+
+        .footer {
+            background: rgba(43, 27, 11, 0.9);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+            border-top: 2px solid #c17f11;
+            color: #c17f11;
+        }
+
+        .login-btn {
+            background: #c17f11;
+            color: #0a1f30;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #ffd700;
+            transform: scale(1.05);
+        }
+
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .login-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #0a1f30;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid #c17f11;
+            z-index: 1001;
+            min-width: 300px;
+            animation: floatIn 0.5s ease-out;
+        }
+
+        @keyframes floatIn {
+            from {
+                transform: translate(-50%, -60%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .login-input {
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #c17f11;
+            background: #132f44;
+            color: #ffd700;
+        }
+
+        .login-input::placeholder {
+            color: #c17f11;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #c17f11;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #ffd700;
+        }
+
+        .login-submit {
+            background: #c17f11;
+            color: #0a1f30;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .login-submit:hover {
+            background: #ffd700;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #c17f11;
+        }
+
+        @keyframes rockingBoat {
+            0% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+            100% { transform: rotate(-1deg); }
+        }
+
+        .movie-card {
+            animation: rockingBoat 3s ease-in-out infinite;
+        }
+
+        @keyframes treasureShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .ad-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.3), transparent);
+            animation: treasureShine 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="https://example.com/home" class="logo">PirateStream</a>
+        <button class="login-btn">☠️ Board Ship</button>
+        <div class="contact-info">
+            Pirate Support: 1-800-PIRATE1<br>
+            Message in a Bottle: captain@piratestream.com
+        </div>
+    </nav>
+
+    <div class="ad-banner">
+        <div class="ad-container">
+            <div class="ad-card">
+                <h3 class="ad-title">Captain's Premium Membership!</h3>
+                <p class="ad-description">Join the crew for 50% off! First 3 months of premium streaming for the price of a bottle of rum!</p>
+            </div>
+            <div class="ad-card">
+                <h3 class="ad-title">Treasure Chest Bundle</h3>
+                <p class="ad-description">Plunder 5 new releases for the price of 3! Family crew package available!</p>
+            </div>
+            <div class="ad-card">
+                <h3 class="ad-title">Win a Golden Ticket!</h3>
+                <p class="ad-description">Join our crew for a chance to win premiere tickets to upcoming adventures!</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <h2 class="category-header">⚔️ Action & Adventure</h2>
+        <div class="movie-grid" id="actionGrid"></div>
+
+        <h2 class="category-header">🎭 Drama & Thriller</h2>
+        <div class="movie-grid" id="dramaGrid"></div>
+
+        <h2 class="category-header">🚀 Sci-Fi & Fantasy</h2>
+        <div class="movie-grid" id="scifiGrid"></div>
+
+        <h2 class="category-header">😄 Comedy</h2>
+        <div class="movie-grid" id="comedyGrid"></div>
+
+        <h2 class="category-header">👻 Horror</h2>
+        <div class="movie-grid" id="horrorGrid"></div>
+    </div>
+
+    <footer class="footer">
+        <h3>PirateStream Entertainment Fleet</h3>
+        <p>Treasure Island Cove, Caribbean Sea</p>
+        <p>Pirate Hotline: 1-800-PIRATE1 | Message in a Bottle: captain@piratestream.com</p>
+        <p>Sailing the Seven Seas 24/7 for Your Entertainment</p>
+    </footer>
+
+    <div class="modal-backdrop" id="loginModal">
+        <div class="login-modal">
+            <button class="modal-close">&times;</button>
+            <h2 class="login-header">⚓ Board Your Ship ⚓</h2>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="username">Pirate Name</label>
+                    <input type="text" id="username" class="login-input" placeholder="Captain Jack" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Secret Code</label>
+                    <input type="password" id="password" class="login-input" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="login-submit">Set Sail!</button>
+            </form>
+            <p class="login-footer">
+                New to the crew? <br>
+                Sign up for your own ship!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const movies = {
+            action: [
+                { title: "The Dark Knight", rating: 9.0, poster: "linear-gradient(45deg, #2c2c2c, #5a5a5a)", imdbId: "tt0468569" },
+                { title: "Mad Max: Fury Road", rating: 8.1, poster: "linear-gradient(45deg, #4a1f1f, #8a3f3f)", imdbId: "tt1392190" },
+                { title: "John Wick", rating: 7.4, poster: "linear-gradient(45deg, #1a1a1a, #4a4a4a)", imdbId: "tt2911666" },
+                { title: "Die Hard", rating: 8.2, poster: "linear-gradient(45deg, #3c2c2c, #6a5a5a)", imdbId: "tt0095016" },
+                { title: "Mission Impossible", rating: 8.5, poster: "linear-gradient(45deg, #2a2a2a, #5c5c5c)", imdbId: "tt0117060" },
+                { title: "Gladiator", rating: 8.5, poster: "linear-gradient(45deg, #3d3d3d, #6d6d6d)", imdbId: "tt0172495" }
+            ],
+            drama: [
+                { title: "The Shawshank Redemption", rating: 9.3, poster: "linear-gradient(45deg, #2d2d2d, #5d5d5d)", imdbId: "tt0111161" },
+                { title: "The Godfather", rating: 9.2, poster: "linear-gradient(45deg, #2e2e2e, #5e5e5e)", imdbId: "tt0068646" },
+                { title: "Pulp Fiction", rating: 8.9, poster: "linear-gradient(45deg, #3c3c3c, #6a6a6a)", imdbId: "tt0110912" },
+                { title: "Fight Club", rating: 8.8, poster: "linear-gradient(45deg, #1d1d1d, #4d4d4d)", imdbId: "tt0137523" },
+                { title: "Schindler's List", rating: 9.0, poster: "linear-gradient(45deg, #2b2b2b, #5b5b5b)", imdbId: "tt0108052" },
+                { title: "Forrest Gump", rating: 8.8, poster: "linear-gradient(45deg, #4d4d4d, #7d7d7d)", imdbId: "tt0109830" }
+            ],
+            scifi: [
+                { title: "Inception", rating: 8.8, poster: "linear-gradient(45deg, #1a1a1a, #4a4a4a)", imdbId: "tt1375666" },
+                { title: "The Matrix", rating: 8.7, poster: "linear-gradient(45deg, #1c1c1c, #4c4c4c)", imdbId: "tt0133093" },
+                { title: "Interstellar", rating: 8.6, poster: "linear-gradient(45deg, #3a3a3a, #6c6c6c)", imdbId: "tt0816692" },
+                { title: "Blade Runner 2049", rating: 8.0, poster: "linear-gradient(45deg, #2f2f2f, #5f5f5f)", imdbId: "tt1856101" },
+                { title: "Arrival", rating: 7.9, poster: "linear-gradient(45deg, #2e2e2e, #5e5e5e)", imdbId: "tt2543164" },
+                { title: "Dune", rating: 8.0, poster: "linear-gradient(45deg, #3b3b3b, #6b6b6b)", imdbId: "tt1160419" }
+            ],
+            comedy: [
+                { title: "Superbad", rating: 7.6, poster: "linear-gradient(45deg, #4e4e4e, #7e7e7e)", imdbId: "tt0829482" },
+                { title: "The Hangover", rating: 7.7, poster: "linear-gradient(45deg, #3e3e3e, #6e6e6e)", imdbId: "tt1119646" },
+                { title: "Shaun of the Dead", rating: 7.9, poster: "linear-gradient(45deg, #4d4d4d, #7d7d7d)", imdbId: "tt0365748" },
+                { title: "Bridesmaids", rating: 6.8, poster: "linear-gradient(45deg, #2d2d2d, #5d5d5d)", imdbId: "tt1478338" }
+            ],
+            horror: [
+                { title: "The Shining", rating: 8.4, poster: "linear-gradient(45deg, #1f1f1f, #4f4f4f)", imdbId: "tt0081505" },
+                { title: "Get Out", rating: 7.7, poster: "linear-gradient(45deg, #2e2e2e, #5e5e5e)", imdbId: "tt5052448" },
+                { title: "A Quiet Place", rating: 7.5, poster: "linear-gradient(45deg, #3d3d3d, #6d6d6d)", imdbId: "tt6644200" },
+                { title: "Hereditary", rating: 7.3, poster: "linear-gradient(45deg, #1e1e1e, #4e4e4e)", imdbId: "tt7784604" }
+            ]
+        };
+
+        function createMovieCard(movie, index) {
+            const delay = index * 0.1;
+            const movieCard = document.createElement('div');
+            movieCard.className = 'movie-card';
+            movieCard.style.animationDelay = `${delay}s`;
+
+            movieCard.innerHTML = `
+                <div class="movie-poster" style="background: ${movie.poster}"></div>
+                <div class="movie-info">
+                    <h3 class="movie-title">${movie.title}</h3>
+                    <div class="movie-rating">⚓ ${movie.rating}</div>
+                </div>
+            `;
+
+            movieCard.addEventListener('click', () => {
+                window.open(`https://www.imdb.com/title/${movie.imdbId}`, '_blank');
+            });
+
+            return movieCard;
+        }
+
+        // Populate each category
+        Object.keys(movies).forEach(category => {
+            const gridId = category + 'Grid';
+            movies[category].forEach((movie, index) => {
+                document.getElementById(gridId).appendChild(createMovieCard(movie, index));
+            });
+        });
+
+        document.querySelector('.login-btn').addEventListener('click', () => {
+            document.getElementById('loginModal').style.display = 'block';
+        });
+
+        document.querySelector('.modal-close').addEventListener('click', () => {
+            document.getElementById('loginModal').style.display = 'none';
+        });
+
+        document.querySelector('.login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Yarr! Welcome aboard, matey! 🏴‍☠️');
+            document.getElementById('loginModal').style.display = 'none';
+        });
+
+        document.getElementById('loginModal').addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-backdrop')) {
+                document.getElementById('loginModal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

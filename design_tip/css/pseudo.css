@@ -1,0 +1,18 @@
+a:link {
+    background-color: blue;
+    color: white;
+    font-size: 300px;
+}
+a:hover {
+    background-color: lightblue;
+    color: brown;
+}
+a:active {
+    background-color: #ffe70c;
+ color: green;
+ height: 500px;
+
+}
+.main {
+    width: 500;
+}

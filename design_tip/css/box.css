@@ -1,0 +1,78 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('C:/Users/Acer/Documents/Julian Brent V. Trinidad Aktivities/design_tip/css/square.jpg'); 
+    background-size: cover;
+    background-position: center;
+}
+.box1 {
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 50px 
+    width: 100%; 
+    max-width: 800px; 
+    margin-bottom: 10px;
+    color: white;
+}
+.box1 p{
+font-size: 40px;
+
+}
+.link-box {
+    background-color: black; /* Change this to any color you like */
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    text-align: center;
+    color: white;
+}
+
+.link {
+    text-align: center;
+    font-size: 1.2em; 
+}
+a:link {
+    background-color: gray;
+    border: black;
+    color: white;
+    font-size: 40px;
+}
+a:hover {
+    background-color: black;
+    color: white;
+}
+a:active {
+    background-color: #ffffff;
+ color: rgb(0, 0, 0);
+ height: 500px;
+
+}
+.main {
+    width: 500;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.box1 {
+    text-align: center;
+    font-size: 1.5em; /* Adjust the size as needed */
+    margin-bottom: 20px;
+}
+
+.link {
+    text-align: center;
+    font-size: 1.2em; /* Adjust the size as needed */
+}
