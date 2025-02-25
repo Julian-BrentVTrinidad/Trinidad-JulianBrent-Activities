@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Lil N-</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script>
+    const random = 300;
+    </script>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Guess the Number</h1>
+        <input type="number" id="guess" placeholder="Enter your guess">
+        <button onclick="checkGuess()">GUESS</button>
+        <p id="message">Guess the number between 1 and 100</p>
+        <p id="tries">Tries Left: 5</p>
+    </div>
+    <script>
+        // Select the button
+        const guessButton = document.getElementById('guessButton');
+    
+        // Add hover event listeners
+        guessButton.addEventListener('mouseover', function() {
+            // Change the cursor to mark.png
+            document.body.style.cursor = "url('css/mark.png'), auto";
+        });
+    
+        guessButton.addEventListener('mouseout', function() {
+            // Revert the cursor to the default
+            document.body.style.cursor = "auto";
+        });
+    </script>
+    
+    <script src="./js/guess.js"></script>
+</body>
+</html>
